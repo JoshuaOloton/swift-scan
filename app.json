@@ -25,6 +25,23 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Gelasio-Bold.ttf",
+            "./assets/fonts/Gelasio-BoldItalic.ttf",
+            "./assets/fonts/Gelasio-Italic.ttf",
+            "./assets/fonts/Gelasio-Medium.ttf",
+            "./assets/fonts/Gelasio-MediumItalic.ttf",
+            "./assets/fonts/Gelasio-Regular.ttf",
+            "./assets/fonts/Gelasio-SemiBold.ttf",
+            "./assets/fonts/Gelasio-SemiBoldItalic.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }
