@@ -1,13 +1,13 @@
 import { StyleSheet, View, Image } from "react-native";
 import Text from "@kaloraat/react-native-text";
 import Button from "../components/Button";
-import React from "react";
+import { useApp } from "../context/AppContext";
 
 const Welcome = ({ navigation }) => {
+  const { currentUser } = useApp();
+  console.log("Current User ==> ", currentUser);
+  
   const cart = require("../assets/shopping-cart.png");
-  const title = {
-    fontFamily: "Gelasio",
-  };
 
   return (
     <View style={styles.container}>

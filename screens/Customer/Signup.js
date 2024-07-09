@@ -1,32 +1,50 @@
 import { StyleSheet, View, TouchableOpacity, ActivityIndicator } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, withRepeat } from "react-native-reanimated";
 import Text from "@kaloraat/react-native-text";
-import Button from "../components/Button";
-import UserInput from "../components/UserInput";
-import LoginLogo from "../components/LoginLogo";
-import { signup } from "../services/auth";
+import Button from "../../components/Button";
+import UserInput from "../../components/UserInput";
+import LoginLogo from "../../components/LoginLogo";
+import { signup } from "../../services/auth";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { db } from "../../services/config";
+import  { storeData } from "../../services/storage";
+import { useApp } from '../../context/AppContext';
 
 const Signup = ({ navigation }) => {
+  const OFFSET = 4;
+  const TIME = 60;
+  const REPS = 10;
+
+  const offset = useSharedValue(0);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [curentUser, setCurentUser] = useState();
   const [errorMsg, setErrorMsg] = useState("");
 
+  const { setUserRole } = useApp();
+
+  useEffect(() => {
+    offset.value = withRepeat(withTiming(offset.value === 0 ? OFFSET : 0, { duration: TIME }), REPS, true);
+  }, [errorMsg]);
+
+  const style = useAnimatedStyle(() => ({
+    transform: [{ translateX: offset.value }],
+  }))
+
   const handleSubmit = async () => {
-    console.log("Handle submit");
+    setErrorMsg("");
     if (name === "" || email === "" || password === "" || confirmPassword === "") {
       setErrorMsg("All fields are required");
-      alert(errorMsg);
       return;
     }
 
     if (password !== confirmPassword) {
       setErrorMsg("Passwords do not match");
-      alert(errorMsg);
       return;
     }
 
@@ -34,12 +52,10 @@ const Signup = ({ navigation }) => {
     try {
       const user = await signup(email, password);
       if (user) {
-        setCurentUser(user);
+        await storeData('role', 'customer'); // store user role in async storage
+        setUserRole('customer') // set user role in context
+        await addUsertoFirestore(name, email, password);
         alert("Profile created successfully");
-
-        setTimeout(() => {
-          navigation.navigate("Login");
-        }, 1000);
       }
     } catch (error) {
       if (error.code == "auth/email-already-in-use") {
@@ -49,10 +65,31 @@ const Signup = ({ navigation }) => {
       } else {
         setErrorMsg(`Something went wrong. ${error.message}`);
       }
-      alert(errorMsg);
       setLoading(false);
     }
   };
+
+  const addUsertoFirestore = async (name, email, password) => {
+   try {
+    console.log("Add user to firestore");
+    console.log({
+      name,
+      email,
+      password
+    })
+    const docRef = await addDoc(collection(db, "users"), {
+      "name": name,
+      "email": email,
+      "password": password,
+      "date_created": Timestamp.fromDate(new Date()),
+      "role": "customer"
+    });
+    console.log('docRef ==> ', docRef);
+    console.log("Success?");
+   } catch (error) {
+    throw error;
+   }
+  }
 
   return (
     <View style={styles.container}>
@@ -61,6 +98,7 @@ const Signup = ({ navigation }) => {
         <Text large bold>
           WELCOME
         </Text>
+        {errorMsg && <Animated.Text style={[styles.error, {fontFamily: 'Nunito Sans'}, style]}>{errorMsg}</Animated.Text>}
       </View>
       <View>
         <UserInput
@@ -97,12 +135,12 @@ const Signup = ({ navigation }) => {
           <ActivityIndicator size="large" color="#fff" /> }
       </Button>
       <Text center style={{ marginTop: 10, color: "#909090", borderWidth: 0 }}>
-        Aleady have an account?
+        Already have an account?
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("Login")}
         >
-          <Text style={styles.buttonText}>SIGN IN</Text>
+          <Text style={ styles.buttonText }>SIGN IN</Text>
         </TouchableOpacity>
       </Text>
     </View>
@@ -125,14 +163,17 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 4,
     width: 240,
-    // height: 100,
-    // backgroundColor: "#FFF",
-    // marginBottom: 12,
   },
   buttonText: {
     alignSelf: "center",
-    // fontSize: 24,
-    // color: "#fff",
     fontWeight: "bold",
   },
+
+  error: {
+    color: 'red',
+    fontSize: 14,
+    fontStyle: 'italic',
+    marginTop: 10,
+    display: 'inline-block'
+  }
 });

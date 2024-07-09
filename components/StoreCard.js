@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity, Alert } from "react-native";
 import Text from '@kaloraat/react-native-text'
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
@@ -12,7 +12,7 @@ const StoreCard = ({ imageUrl, title, time, distance, rating }) => {
     <TouchableOpacity onPress={() => navigation.navigate('ScanProduct')}>
       <View style={styles.storeWrapper}>
         <View style={styles.storeImage}>
-          <Image source={image} />
+          <Image source={image} style={{ width: '100%', borderRadius: 10, }} />
         </View>
         <View style={styles.storeText}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -42,13 +42,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#f1f2f6",
     marginVertical: 10,
     borderRadius: 10,
-    padding: 10
+    padding: 10,
+    // width:'90%'
   },
 
-  storeImage: {},
-
+  storeImage: {
+  },
+  
   storeText: {
-    paddingVertical: 10,
+    // padding: 10,
+    marginTop: 10,
     gap: 10
   },
 });

@@ -1,16 +1,16 @@
 import { StyleSheet, View, FlatList } from "react-native";
 import Text from "@kaloraat/react-native-text";
-import { db } from "../services/config";
+import { db } from "../../services/config";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import SearchBox from "../components/SearchBox";
-import StoreCard from "../components/StoreCard";
+import SearchBox from "../../components/SearchBox";
+import StoreCard from "../../components/StoreCard";
 
 const Home = () => {
   const [viewStores, setViewStores] = useState([]);
   const [filterStores, setFilterStores] = useState([]);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchStores = async () => {
@@ -18,29 +18,32 @@ const Home = () => {
       setViewStores(stores.docs);
       setFilterStores(stores.docs);
       stores.forEach((doc) => {
-        console.log(doc.id, "=>", doc.data());
+        // console.log(doc.id, "=>", doc.data());
       });
     };
     fetchStores();
   }, []);
 
-  // useEffect(() => {
-  //   console.log('View Stores ==>', viewStores);
-  // },[viewStores]);
-
   useEffect(() => {
-    const filteredStores = viewStores.filter(store => store.data().name.includes(searchTerm.trim()))
-    setFilterStores(filteredStores)
+    const filteredStores = viewStores.filter((store) =>
+      store.data().name.toLowerCase().includes(searchTerm.trim().toLowerCase())
+    );
+    setFilterStores(filteredStores);
   }, [viewStores, searchTerm]);
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <View style={styles.nearMe}>
         <Text color="#fff" style={{ fontFamily: "Merriweather", fontSize: 38 }}>
-          Near me
+          Near mee
         </Text>
         <Text color="#fff">Choose From Nearby Supermarkets</Text>
-        <SearchBox searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <SearchBox
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          placeholder="Search for any supermarket..."
+          overlap={true}
+        />
       </View>
       <View style={styles.storesGallery}>
         {/* { viewStores ? (
@@ -57,11 +60,15 @@ const Home = () => {
         ) : (
           <Text>Loading...</Text>
         )} */}
-        { filterStores.length === 0 && <Text style={{ fontFamily: "Nunito Sans", marginTop: 20 }}>No stores found</Text>}
+        {filterStores.length === 0 && (
+          <Text style={{ fontFamily: "Nunito Sans", marginTop: 20 }}>
+            Please wait...
+          </Text>
+        )}
         <FlatList
           data={filterStores}
-          renderItem={({item}) => (
-            <StoreCard 
+          renderItem={({ item }) => (
+            <StoreCard
               key={item.id}
               imageUrl={item.data().image_url}
               title={item.data().name}
@@ -70,7 +77,7 @@ const Home = () => {
               rating={item.data().rating}
             />
           )}
-          keyExtractor={item => item.id} 
+          keyExtractor={(item) => item.id}
         />
       </View>
     </View>
@@ -92,9 +99,9 @@ const styles = StyleSheet.create({
   storesGallery: {
     flex: 2,
     justifyContent: "center",
-    alignItems: "center",
     width: "100%",
     zIndex: -1,
-    marginTop: 40
+    marginTop: 40,
+    paddingHorizontal: 20,
   },
 });

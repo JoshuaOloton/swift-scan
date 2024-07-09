@@ -21,27 +21,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.joshuaoloton.swiftscan"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "extra": {
+      "eas": {
+        "projectId": "b0b6d26b-e7f0-4bdc-bcf3-852795848b8c"
+      }
+    },
     "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/fonts/Gelasio-Bold.ttf",
-            "./assets/fonts/Gelasio-BoldItalic.ttf",
-            "./assets/fonts/Gelasio-Italic.ttf",
-            "./assets/fonts/Gelasio-Medium.ttf",
-            "./assets/fonts/Gelasio-MediumItalic.ttf",
-            "./assets/fonts/Gelasio-Regular.ttf",
-            "./assets/fonts/Gelasio-SemiBold.ttf",
-            "./assets/fonts/Gelasio-SemiBoldItalic.ttf"
-          ]
-        }
-      ]
+      "expo-font"
     ]
   }
 }
