@@ -1,4 +1,4 @@
-# Swift-Scan
+# Swift-Scan Mobile App
 
 Swift-Scan is a modern self-checkout mobile application designed to revolutionize the supermarket shopping experience. Developed using React Native and Firebase, this innovative app allows users to scan, manage, and pay for their purchases directly from their smartphones, eliminating the need for traditional cashier-based checkout systems.
 
