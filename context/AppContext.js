@@ -12,7 +12,6 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {   
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log("user", user);
       setCurrentUser(user);
     });
 
@@ -29,14 +28,9 @@ const AppProvider = ({ children }) => {
     loadRoleFromStorage();
   }, [userRole]);
 
-  useEffect(() => {
-    console.log('CartTT: ', cart);
-  }, [cart]);
-
-  // useffect for user role
-  useEffect(() => {
-    console.log('UserRole: ', userRole);
-  }, [userRole]);
+  const updateCart = (newCart) => {
+    setCart(newCart);
+  };
 
   return (
     <AppContext.Provider value={{ currentUser, userRole, setUserRole, cart, setCart }}>

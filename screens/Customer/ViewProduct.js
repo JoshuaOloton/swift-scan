@@ -29,11 +29,12 @@ const ViewProduct = ({ navigation, route }) => {
     setQuantity((prev) => prev + update);
   };
 
+  // Add product to cart
   const addToCart = () => {
     try {
       setLoading(true);
       setCart((currentCart) => {
-        const existingCart = cart.find(
+        const existingCart = currentCart.find(
           (item) => item.barcode === product.barcode
         );
         if (existingCart) {
@@ -46,16 +47,6 @@ const ViewProduct = ({ navigation, route }) => {
           return [...currentCart, { ...product, quantity }];
         }
       });
-      // const cartCopy = [...cart];
-      // const itemIndex = cartCopy.findIndex(
-      //   (i) => i.barcode === product.barcode
-      // );
-      // if (itemIndex !== -1) {
-      //   cartCopy[itemIndex].quantity += 1;
-      // } else {
-      //   cartCopy.push({ ...product, quantity });
-      // }
-      // setCart(cartCopy);
       navigation.navigate("ScanProduct"); // navigate back to scan product
     } catch (error) {
       console.log("error");
@@ -75,23 +66,12 @@ const ViewProduct = ({ navigation, route }) => {
 
   useEffect(() => {
     const fetchProduct = async (barcode) => {
-      console.log("fetchProduct");
-      console.log(barcode);
-
       const productRef = collection(db, "products");
       const q = query(productRef, where("barcode", "==", barcode));
 
-      console.log("q");
-      console.log(q);
-      // console.log(q.data());
-
       try {
         const querySnapshot = await getDocs(q);
-        console.log("querySnapshot");
-        console.log(querySnapshot);
         const q1 = querySnapshot.docs[0].data();
-        console.log("q1");
-        console.log(q1);
         setProduct(q1);
         setTotalPrice(q1.price);
       } catch (error) { // Product not found, scan again
@@ -103,11 +83,6 @@ const ViewProduct = ({ navigation, route }) => {
     };
     fetchProduct(barcode);
   }, []);
-
-  useEffect(() => {
-    console.log("product");
-    console.log(product);
-  }, [product]);
 
   if (product === null) {
     return (
@@ -148,7 +123,7 @@ const ViewProduct = ({ navigation, route }) => {
       </View>
       <Text style={styles.description}>{product.description}</Text>
 
-      <Button role="submit-form" clickHandler={addToCart}>
+      <Button role="dark" clickHandler={addToCart}>
         {!loading ? (
           "ADD TO CART"
         ) : (

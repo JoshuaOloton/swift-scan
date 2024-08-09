@@ -5,7 +5,6 @@ import { useApp } from "../context/AppContext";
 
 const Welcome = ({ navigation }) => {
   const { currentUser } = useApp();
-  console.log("Current User ==> ", currentUser);
   
   const cart = require("../assets/shopping-cart.png");
 
@@ -19,7 +18,7 @@ const Welcome = ({ navigation }) => {
       </Text>
       <Image source={cart} style={styles.cartImage} />
       <Button
-        role="get-started"
+        role="dark"
         style={styles.getStarted}
         clickHandler={() => navigation.navigate("Login")}
       >

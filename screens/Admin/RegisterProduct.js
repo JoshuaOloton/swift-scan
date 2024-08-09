@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import { StyleSheet, View, Image, ActivityIndicator } from "react-native";
+import { StyleSheet, View, Image, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, withRepeat } from "react-native-reanimated";
 import Text from "@kaloraat/react-native-text";
 import UserInput from "../../components/UserInput";
@@ -52,13 +52,6 @@ export default function RegisterProduct({ route, navigation }) {
 
   const addProductToInventory = async (name, quantity, price, description) => {
     try {
-      console.log("Add product to inventory");
-      console.log({
-        name,
-        quantity,
-        price,
-        description,
-      });
 
       // check if product with barcode alreay exists
       // const exists = await productExists(barcode);
@@ -75,8 +68,6 @@ export default function RegisterProduct({ route, navigation }) {
         date_added: Timestamp.fromDate(new Date()),
         barcode
       });
-      console.log("docRef ==> ", docRef);
-      console.log("Success?");
     } catch (error) {
       throw error;
     }
@@ -84,16 +75,14 @@ export default function RegisterProduct({ route, navigation }) {
 
   const handleSubmit = async () => {
     try {
-      console.log("Name: ", name);
-      console.log("Quantity: ", quantity);
-      console.log("Price: ", price);
-      console.log("Description: ", description);
 
       setErrorMsg("");
       setLoading(true);
       await addProductToInventory(name, quantity, price, description);
-      alert(`Product with id: ${barcode} added successfully! Please scan another product to continue.`);
-      navigation.goBack();
+      // alert(`Product with id: ${barcode} added successfully! Please scan another product to continue.`);
+      // navigation.goBack();
+
+      navigation.navigate("ScanSuccess");
     } catch (error) {
       setErrorMsg(`Something went wrong. ${error.message}`);
       setLoading(false);
@@ -101,63 +90,69 @@ export default function RegisterProduct({ route, navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.title}>
-        <AntDesign
-          name="left"
-          size={24}
-          color="black"
-          style={{ position: "absolute", left: 30 }}
-          onPress={() => navigation.goBack()}
-        />
-        <Text
-          style={{
-            textAlign: "center",
-            fontFamily: "Merriweather-Bold",
-            fontSize: 20,
-          }}
-        >
-          Register Product
-        </Text>
-      </View>
-      <View style={styles.product}>
-        <View style={styles.barcode}>
-          <Image source={image} />
-          <Text center>{barcode}</Text>
+    <KeyboardAvoidingView 
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.title}>
+          <AntDesign
+            name="left"
+            size={24}
+            color="black"
+            style={{ position: "absolute", left: 30 }}
+            onPress={() => navigation.goBack()}
+          />
+          <Text
+            style={{
+              textAlign: "center",
+              fontFamily: "Merriweather-Bold",
+              fontSize: 20
+            }}
+          >
+            Register Product
+          </Text>
         </View>
-        {errorMsg && <Animated.Text style={[styles.error, {fontFamily: 'Nunito Sans'}, style]}>{errorMsg}</Animated.Text>}
-        <View style={styles.registerForm}>
-          <UserInput
-            name="Name of Product"
-            value={name}
-            setValue={setName}
-            autoCapitalize="words"
-          />
-          <UserInput
-            name="Quantity"
-            value={quantity}
-            setValue={setQuantity}
-            autoCapitalize="words"
-          />
-          <UserInput
-            name="Price"
-            value={price}
-            setValue={setPrice}
-            inputMode="numeric"
-          />
-          <UserInput
-            name="Description"
-            value={description}
-            setValue={setDescription}
-            autoCapitalize="sentences"
-            multiline={true}
-          />
+        <View style={styles.product}>
+          <View style={styles.barcode}>
+            <Image source={image} />
+            <Text center>{barcode}</Text>
+          </View>
+          {errorMsg && <Animated.Text style={[styles.error, {fontFamily: 'Nunito Sans'}, style]}>{errorMsg}</Animated.Text>}
+          <View style={styles.registerForm}>
+            <UserInput
+              name="Name of Product"
+              value={name}
+              setValue={setName}
+              autoCapitalize="words"
+            />
+            <UserInput
+              name="Quantity"
+              value={quantity}
+              setValue={setQuantity}
+              autoCapitalize="words"
+            />
+            <UserInput
+              name="Price"
+              value={price}
+              setValue={setPrice}
+              inputMode="numeric"
+            />
+            <UserInput
+              name="Description"
+              value={description}
+              setValue={setDescription}
+              autoCapitalize="sentences"
+              multiline={true}
+            />
+          </View>
+          <Button role="dark" clickHandler={handleSubmit}>
+            {!loading ? "ADD" : <ActivityIndicator size="large" color="#fff" />}
+          </Button>
         </View>
-        <Button role="submit-form" clickHandler={handleSubmit}>
-          {!loading ? "ADD" : <ActivityIndicator size="large" color="#fff" />}
-        </Button>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -167,6 +162,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 40,
     paddingHorizontal: 40,
+  },
+
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: "center",
   },
 
   title: {
@@ -188,7 +188,9 @@ const styles = StyleSheet.create({
   },
 
   registerForm: {
-    flex: 1,
+    // flex: 1,
+    // borderWidth: 1,
+    // borderColor: '#000'
   },
 
   error: {

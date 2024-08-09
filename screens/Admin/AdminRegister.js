@@ -36,6 +36,11 @@ export default function AdminRegister({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(prevState => !prevState);
+  }
+
   const { setUserRole } = useApp();
 
   useEffect(() => {
@@ -70,9 +75,6 @@ export default function AdminRegister({ navigation }) {
     setLoading(true);
     try {
       alert("Signing up")
-      console.log("Name: ", name)
-      console.log("Email: ", email)
-      console.log("Role: admin")
       const user = await signup(email, password);
       if (user) {
         await storeData('role', 'admin'); // store user role in async storage
@@ -94,12 +96,6 @@ export default function AdminRegister({ navigation }) {
 
   const addUsertoFirestore = async (name, email, password) => {
     try {
-      console.log("Add user to firestore");
-      console.log({
-        name,
-        email,
-        password,
-      });
       const docRef = await addDoc(collection(db, "users"), {
         name: name,
         email: email,
@@ -107,8 +103,6 @@ export default function AdminRegister({ navigation }) {
         date_created: Timestamp.fromDate(new Date()),
         role: "admin",
       });
-      console.log("docRef ==> ", docRef);
-      console.log("Success?");
     } catch (error) {
       throw error;
     }
@@ -149,15 +143,19 @@ export default function AdminRegister({ navigation }) {
           value={password}
           setValue={setPassword}
           secureTextEntry={true}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
         />
         <UserInput
           name="Confirm Password"
           value={confirmPassword}
           setValue={setConfirmPassword}
           secureTextEntry={true}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
         />
       </View>
-      <Button role="submit-form" clickHandler={handleSubmit}>
+      <Button role="dark" clickHandler={handleSubmit}>
         {!loading ? "SIGN UP" : <ActivityIndicator size="large" color="#fff" />}
       </Button>
       <Text center style={{ marginTop: 10, color: "#909090", borderWidth: 0 }}>

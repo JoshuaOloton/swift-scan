@@ -32,9 +32,7 @@ const login = async (email, password, role) => {
       email,
       password
     );
-    console.log("User credential", userCredential);
     const user = userCredential.user;
-    console.log(user);
     return user;
   } catch (error) {
     throw error;
@@ -49,7 +47,6 @@ const signup = async (email, password) => {
       password
     );
     const user = userCredential.user;
-    console.log(user);
     return user;
   } catch (error) {
     throw error;

@@ -1,12 +1,13 @@
 import { AntDesign } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from 'react-native'
+import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { signout } from "../../services/auth";
 import { useState, useEffect } from "react";
 import { getData } from "../../services/storage";
 import { useApp } from "../../context/AppContext";
 
-const AdminProfile = ({ navigation }) => {
+const AdminProfile = () => {
   const { currentUser } = useApp();
   const [stateRole, setStateRole] = useState();
   const [storedRole, setStoredRole] = useState();
@@ -31,7 +32,7 @@ const AdminProfile = ({ navigation }) => {
       alert('User successfully logged out');
       await signout();
     } catch (error) {
-      console.log('Error =>', error);
+      alert("Error logging out", error.message);
     }
   }
   return (
@@ -56,12 +57,9 @@ const AdminProfile = ({ navigation }) => {
       </View>
       <View style={styles.profileInfo}>
         <View style={styles.infoHeader}>
-          <Text style={{ fontSize: 20, fontFamily: 'Gelasio' }}>Welcome</Text>
-          <Text>{currentUser.email}</Text>
+        <Feather name="user" size={24} color="black" />
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>{currentUser.email}</Text>
         </View>
-        {/* <Text>{JSON.stringify(currentUser)}</Text> */}
-        <Text>App Context: {stateRole}</Text>
-        <Text>Async Storage: {storedRole}</Text>
       </View>
     </View>
   );
@@ -85,8 +83,17 @@ const styles = StyleSheet.create({
 
   profileInfo: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     paddingVertical: 15,
+    borderWidth: 1,
+    borderColor: "#000",
   },
+
+  infoHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    borderWidth: 1,
+    borderColor: "#000",
+  }
 });

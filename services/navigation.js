@@ -6,7 +6,9 @@ import CartScreen from "../screens/Customer/CartScreen";
 import Home from "../screens/Customer/Home";
 import AdminLogin from "../screens/Admin/AdminLogin";
 import AdminRegister from "../screens/Admin/AdminRegister";
+import AdminPaymentReceipt from "../screens/Admin/AdminPaymentReceipt";
 import AdminScan from "../screens/Admin/AdminScan";
+import ScanSuccess from "../screens/Admin/ScanSuccess";
 import RegisterProduct from "../screens/Admin/RegisterProduct";
 import ScanReceipt from "../screens/Admin/ScanReceipt";
 import Inventory from "../screens/Admin/Inventory";
@@ -16,6 +18,8 @@ import Checkout from "../screens/Customer/Checkout";
 import UserProfile from "../screens/Customer/UserProfile";
 import ScanProduct from "../screens/Customer/ScanProduct";
 import ViewProduct from "../screens/Customer/ViewProduct";
+import PaymentReceipt from "../screens/Customer/PaymentReceipt";
+import PaymentQRSuccess from "../screens/Customer/PaymentQRSuccess";
 import Signup from "../screens/Customer/Signup";
 import Welcome from "../screens/Welcome";
 import Orders from "../screens/Customer/Orders";
@@ -45,6 +49,9 @@ const HomeNavigator = () => {
       <HomeNav.Screen name="ScanProduct" component={ScanProduct} />
       <HomeNav.Screen name="ViewProduct" component={ViewProduct} />
       <HomeNav.Screen name="Checkout" component={Checkout} />
+      <HomeNav.Screen name="PaymentQRSuccess" component={PaymentQRSuccess} />      
+      <HomeNav.Screen name="PaymentReceipt" component={PaymentReceipt} />      
+
     </HomeNav.Navigator>
   );
 };
@@ -59,6 +66,7 @@ const AdminNavigator = () => {
     >
       <AdminNav.Screen name="AdminScan" component={AdminScan} />
       <AdminNav.Screen name="RegisterProduct" component={RegisterProduct} />
+      <AdminNav.Screen name="ScanSuccess" component={ScanSuccess} />
     </AdminNav.Navigator>
   );
 };
@@ -169,6 +177,21 @@ const TabNavigator = () => {
   );
 };
 
+const ScanReceiptNav = createNativeStackNavigator();
+
+const ScanReceiptNavigator = () => {
+  return (
+    <ScanReceiptNav.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerShown: false }}
+    >
+      <ScanReceiptNav.Screen name="ScanReceipt" component={ScanReceipt} />
+      <ScanReceiptNav.Screen name="AdminPaymentReceipt" component={AdminPaymentReceipt} />
+
+    </ScanReceiptNav.Navigator>
+  );
+};
+
 const AdminTabNavigator = () => {
   return (
     <Tab.Navigator
@@ -189,8 +212,8 @@ const AdminTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ScanReceipt"
-        component={ScanReceipt}
+        name="ScanReceiptNavigator"
+        component={ScanReceiptNavigator}
         options={{
           tabBarLabel: "Scan Receipt",
           tabBarIcon: ({ color }) => (

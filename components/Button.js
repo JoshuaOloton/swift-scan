@@ -9,11 +9,11 @@ const Button = ({ children, role, clickHandler }) => {
       style={[
         styles.btnWrapper,
         {
-            backgroundColor: role === 'submit-form' || role === 'get-started' ? '#242424' : '#fff',
-            paddingHorizontal: role === 'get-started' ? 25 : 'auto',
+            backgroundColor: role === 'dark' || role === 'dark' ? '#242424' : '#fff',
+            paddingHorizontal: role === 'dark' ? 25 : 'auto',
         }
     ]}>
-      <Text center style={{color: role === 'submit-form' || role === 'get-started' ? '#fff' : '#242424'}}>{children}</Text>
+      <Text center style={{color: role === 'dark' || role === 'dark' ? '#fff' : '#242424' }}>{children}</Text>
     </TouchableOpacity>
   )
 }
@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 50,
     justifyContent: 'center',
+    alignItems: 'center',
     marginVertical: 10,
+    borderWidth: 1,
+    borderColor: '#000'
   }
 })

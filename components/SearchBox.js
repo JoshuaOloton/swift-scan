@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
     paddingHorizontal: 10,
-    width: "80%",
+    // width: "80%",
     // boxShadow: "0px 4px 4px red",
   },
   

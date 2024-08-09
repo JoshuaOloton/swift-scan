@@ -4,18 +4,29 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useApp } from "../../context/AppContext";
 import CartItem from "../../components/CartItem";
 import Button from "../../components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const CartScreen = ({ navigation }) => {
   const { cart } = useApp();
-
+  
+  const [totalCost, setTotalCost] = useState(0)
   const [loading, setLoading] = useState(false);
 
+  
   const proceedToCheckout = () => {
     try {
-      setLoading(true);
-      navigation.navigate('Checkout');
+      // use reduce function to store accumulated cost of all items
+      let tCost = cart.map(item => item.price * item.quantity).reduce((a ,b) => a + b, 0).toFixed(2);
+      navigation.navigate('Checkout', { tCost });
+
+      // let tc = 0;
+      // for (let item of cart) {
+      //   tc += item.price;
+      // }
+      // console.log(tc.toFixed(2));
+      // console.log(cart);
+      // alert(totalCost);
     } catch (error) {
       setLoading(false);
     }
@@ -43,30 +54,32 @@ const CartScreen = ({ navigation }) => {
       </View>
       <View style={styles.cartContent}>
         { cart.length > 0 ? (
-          <View style={styles.cartItems}>
-            { cart.map(item => (
-              <CartItem
-                key={item.barcode}
-                barcode={item.barcode}
-                name={item.name}
-                price={item.price}
-                quantity={item.quantity}
-              />
-            )) }
-          </View>
+          <>
+            <View style={styles.cartItems}>
+              { cart.map(item => (
+                <CartItem
+                  key={item.barcode}
+                  barcode={item.barcode}
+                  name={item.name}
+                  price={item.price}
+                  quantity={item.quantity}
+                />
+              )) }
+            </View>
+            <Button role="dark" clickHandler={proceedToCheckout}>
+              {!loading ? (
+                "Go to Checkout"
+              ) : (
+                <ActivityIndicator size="large" color="#fff" />
+              )}
+            </Button>
+          </>
         ) : (
-          <View style={{ justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#000', flex: 1 }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={{ fontSize: 20, fontFamily: 'Gelasio' }}>Cart is empty</Text>
               <MaterialCommunityIcons name="emoticon-sad-outline" size={35} color="black" />
           </View>
         )}
-        <Button role="submit-form" clickHandler={proceedToCheckout}>
-          {!loading ? (
-            "Check out"
-          ) : (
-            <ActivityIndicator size="large" color="#fff" />
-          )}
-        </Button>
       </View>
     </View>
   )
@@ -93,8 +106,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 15,
     paddingHorizontal: 40,
-    borderWidth: 1,
-    borderColor: '#000'
   },
 
   cartItems: {

@@ -14,6 +14,14 @@ export default function AdminScan({ navigation }) {
   const [result, setResult] = useState("");
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      setResult("");
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
     if (result) {
       navigation.navigate("RegisterProduct", { barcode: result });
     }
@@ -52,16 +60,13 @@ export default function AdminScan({ navigation }) {
   };
 
   const handleBarcodeScanned = ({ data, type }) => {
-    console.log("On Barcode scanned");
-    console.log(data);
-    console.log(type);
     setResult(data);
   };
 
   return (
     <View style={styles.container}>
       <Text style={{ fontFamily: "Gelasio-Bold", fontSize: 23 }}>
-        Fresh Mart
+        Scan Product
       </Text>
       <Text
         style={{

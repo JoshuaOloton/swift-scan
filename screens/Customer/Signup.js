@@ -26,6 +26,11 @@ const Signup = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(prevState => !prevState);
+  }
+
   const { setUserRole } = useApp();
 
   useEffect(() => {
@@ -36,13 +41,16 @@ const Signup = ({ navigation }) => {
     transform: [{ translateX: offset.value }],
   }))
 
-  const handleSubmit = async () => {
+  // User Signup handler function
+  const handleSignup = async () => {
     setErrorMsg("");
+    // reject form input if any field is empty
     if (name === "" || email === "" || password === "" || confirmPassword === "") {
       setErrorMsg("All fields are required");
       return;
     }
 
+    // reject form input if password and confirm password do not match
     if (password !== confirmPassword) {
       setErrorMsg("Passwords do not match");
       return;
@@ -69,14 +77,9 @@ const Signup = ({ navigation }) => {
     }
   };
 
+  // Add User document to Firestore
   const addUsertoFirestore = async (name, email, password) => {
    try {
-    console.log("Add user to firestore");
-    console.log({
-      name,
-      email,
-      password
-    })
     const docRef = await addDoc(collection(db, "users"), {
       "name": name,
       "email": email,
@@ -84,8 +87,6 @@ const Signup = ({ navigation }) => {
       "date_created": Timestamp.fromDate(new Date()),
       "role": "customer"
     });
-    console.log('docRef ==> ', docRef);
-    console.log("Success?");
    } catch (error) {
     throw error;
    }
@@ -118,17 +119,21 @@ const Signup = ({ navigation }) => {
           value={password}
           setValue={setPassword}
           secureTextEntry={true}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
         />
         <UserInput
           name="Confirm Password"
           value={confirmPassword}
           setValue={setConfirmPassword}
           secureTextEntry={true}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
         />
       </View>
       <Button 
-        role="submit-form"
-        clickHandler={handleSubmit}
+        role="dark"
+        clickHandler={handleSignup}
       >
         { !loading ? 
           "SIGN UP" :

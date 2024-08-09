@@ -10,12 +10,11 @@ const UserInput = ({
   autoCapitalize = "none",
   keyboardType = "default",
   inputMode = "text",
-  multiline=false
+  multiline=false,
+  showPassword,
+  toggleShowPassword
 }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const toggleShowPassword = () => {
-    setShowPassword(prevState => !prevState);
-  }
+  
 
   return (
     <View>
@@ -71,6 +70,7 @@ const UserInput = ({
           keyboardType={keyboardType}
           inputMode={inputMode}
           multiline={multiline}
+          secureTextEntry={name === 'Confirm Password' && !showPassword}
         />
       )}
     </View>

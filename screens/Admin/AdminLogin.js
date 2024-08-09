@@ -22,6 +22,11 @@ export default function AdminLogin({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(prevState => !prevState);
+  }
+
   const { setUserRole } = useApp();
 
   useEffect(() => {
@@ -37,17 +42,12 @@ export default function AdminLogin({ navigation }) {
       setErrorMsg("");
       setLoading(true);
       const user = await login(email, password.trim(), "admin");
-      console.log(user);
       if (user) {
         alert("Login successful");
         await storeData('role', 'admin'); // store user role in async storage
         setUserRole('admin') // set user role in context
       }
     } catch (error) {
-      console.log("error");
-      console.log(error);
-      console.log(error.code);
-      console.log(error.message);
       if (error.code == "auth/user-not-found") {
         setErrorMsg("User not found. Please sign up");
       } else if (error.code == "auth/wrong-password") {
@@ -85,9 +85,11 @@ export default function AdminLogin({ navigation }) {
           value={password}
           setValue={setPassword}
           secureTextEntry={true}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
           />
       </View>
-      <Button role="submit-form" clickHandler={handleSubmit}>
+      <Button role="dark" clickHandler={handleSubmit}>
         {!loading ? "Log in" : <ActivityIndicator size="small" color="#fff" />}
       </Button>
       <Button

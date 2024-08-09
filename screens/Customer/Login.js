@@ -22,6 +22,11 @@ const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(prevState => !prevState);
+  }
+
   const { userRole, setUserRole } = useApp();
 
   useEffect(() => {
@@ -32,7 +37,8 @@ const Login = ({ navigation }) => {
     transform: [{ translateX: offset.value }],
   }));
 
-  const handleSubmit = async () => {
+  // User Login handler function
+  const handleLogin = async () => {
     try {
       setErrorMsg("");
       setLoading(true);
@@ -44,10 +50,6 @@ const Login = ({ navigation }) => {
         setUserRole('customer') // set user role in context
       }
     } catch (error) {
-      console.log("error");
-      console.log(error);
-      console.log(error.code);
-      console.log(error.message);
       if (error.code == "auth/user-not-found") {
         setErrorMsg("User not found. Please sign up");
       } else if (error.code == "auth/wrong-password") {
@@ -84,9 +86,11 @@ const Login = ({ navigation }) => {
           name="Password"
           value={password}
           setValue={setPassword}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
           />
       </View>
-      <Button role="submit-form" clickHandler={handleSubmit}>
+      <Button role="dark" clickHandler={handleLogin}>
         {!loading ? "Log in" : <ActivityIndicator size="small" color="#fff" />}
       </Button>
       <Button

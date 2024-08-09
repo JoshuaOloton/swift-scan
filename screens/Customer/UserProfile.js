@@ -7,7 +7,7 @@ import { getData } from "../../services/storage";
 import { useApp } from "../../context/AppContext";
 
 
-const UserProfile = ({ navigation }) => {
+const UserProfile = () => {
   const { currentUser } = useApp();
   const [stateRole, setStateRole] = useState();
   const [storedRole, setStoredRole] = useState();
@@ -62,9 +62,6 @@ const UserProfile = ({ navigation }) => {
           <Text style={{ fontSize: 20, fontFamily: 'Gelasio' }}>Welcome</Text>
           <Text>{currentUser.email}</Text>
         </View>
-        {/* <Text>{JSON.stringify(currentUser)}</Text> */}
-        <Text>App Context: {stateRole}</Text>
-        <Text>Async Storage: {storedRole}</Text>
       </View>
     </View>
   )

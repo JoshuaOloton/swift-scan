@@ -13,6 +13,16 @@ const ScanProduct = ({ navigation }) => {
   const [permission, requestPermission] = useCameraPermissions();
   const [result, setResult] = useState("");
 
+  /* Reset barcode when screen is navigated back to
+  useful for when a product fetch fails o barcode is reset */
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      setResult("");
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   useEffect(() => {
     if (result) {
       navigation.navigate('ViewProduct', { barcode: result });
