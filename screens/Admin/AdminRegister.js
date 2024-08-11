@@ -12,7 +12,7 @@ import Animated, {
   withRepeat,
 } from "react-native-reanimated";
 import Text from "@kaloraat/react-native-text";
-import Button from "../../components/Button";
+import ActionButton from "../../components/Button";
 import UserInput from "../../components/UserInput";
 import LoginLogo from "../../components/LoginLogo";
 import { signup } from "../../services/auth";
@@ -155,9 +155,9 @@ export default function AdminRegister({ navigation }) {
           toggleShowPassword={toggleShowPassword}
         />
       </View>
-      <Button role="dark" clickHandler={handleSubmit}>
+      <ActionButton role="dark" clickHandler={handleSubmit}>
         {!loading ? "SIGN UP" : <ActivityIndicator size="large" color="#fff" />}
-      </Button>
+      </ActionButton>
       <Text center style={{ marginTop: 10, color: "#909090", borderWidth: 0 }}>
         Already have an account?
         <TouchableOpacity

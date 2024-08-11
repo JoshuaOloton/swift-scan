@@ -7,7 +7,7 @@ Swift-Scan is a modern self-checkout mobile application designed to revolutioniz
 - **Efficient Checkout**: Say goodbye to long queues and waiting times at the checkout counter.
 - **Product Scanning**: Easily scan items using your smartphone camera for quick and accurate checkout.
 - **Cart Management**: Add, remove, and adjust quantities of items in your virtual shopping cart with ease.
-- **Secure Payments**: Pay securely using integrated payment gateways, including credit/debit cards and mobile wallets.
+- **Secure Payments**: Pay securely using integrated payment gateways, including credit/debit cards and mobile wallets. 
 - **Real-time Receipts**: Receive instant digital receipts for all transactions, accessible directly from the app.
 
 ## Installation

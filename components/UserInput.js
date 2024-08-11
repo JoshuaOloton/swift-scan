@@ -7,6 +7,7 @@ const UserInput = ({
   name,
   value,
   setValue,
+  required = true,
   autoCapitalize = "none",
   keyboardType = "default",
   inputMode = "text",
@@ -19,7 +20,8 @@ const UserInput = ({
   return (
     <View>
       <Text small color="#909090">
-        {name}
+        {name} 
+        {required && <Text style={styles.asterisk}> *</Text>}
       </Text>
       {name === "Password" ? (
         <View
@@ -82,5 +84,10 @@ export default UserInput;
 const styles = StyleSheet.create({
   textInput: {
     height: 40,
+  },
+
+  asterisk: {
+    color: "darkred",
+    fontSize: 10,
   },
 });

@@ -4,7 +4,7 @@ import Text from "@kaloraat/react-native-text";
 import { useState, useEffect } from "react";
 import LoginLogo from "../../components/LoginLogo";
 import UserInput from "../../components/UserInput";
-import Button from "../../components/Button";
+import ActionButton from "../../components/Button";
 import { login } from "../../services/auth";
 import { useApp } from '../../context/AppContext';
 import  { storeData } from "../../services/storage";
@@ -40,6 +40,10 @@ const Login = ({ navigation }) => {
   // User Login handler function
   const handleLogin = async () => {
     try {
+      if (!email || !password) {
+        setErrorMsg("Please fill in all fields");
+        return;
+      }
       setErrorMsg("");
       setLoading(true);
       const user = await login(email, password.trim(), "customer");
@@ -90,15 +94,15 @@ const Login = ({ navigation }) => {
           toggleShowPassword={toggleShowPassword}
           />
       </View>
-      <Button role="dark" clickHandler={handleLogin}>
+      <ActionButton role="dark" clickHandler={handleLogin}>
         {!loading ? "Log in" : <ActivityIndicator size="small" color="#fff" />}
-      </Button>
-      <Button
+      </ActionButton>
+      <ActionButton
         role="switch-form"
         clickHandler={() => navigation.navigate("Signup")}
       >
         SIGN UP
-      </Button>
+      </ActionButton>
       <TouchableOpacity onPress={() => navigation.navigate("AdminLogin")}>
         <Text style={{ textAlign: 'center', marginTop: 20 }}>Admin? Click here to login</Text>
       </TouchableOpacity>

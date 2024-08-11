@@ -1,5 +1,4 @@
 import { AntDesign } from "@expo/vector-icons";
-import Button from "../../components/Button";
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 
@@ -70,11 +69,36 @@ const AdminPaymentReceipt = ({ route, navigation }) => {
           </Text>
       </View>
       <View style={styles.receiptDetails}>
+        <View style={styles.receiptTitle}>
+          <Text style={{ color: '#609966', textAlign: 'center', flex: 1 }}>Item</Text>
+          <Text style={{ color: '#609966', textAlign: 'center', flex: 1 }}>Quantity</Text>
+          <Text style={{ color: '#609966', textAlign: 'center', flex: 1 }}>Price</Text>
+        </View>
         { paymentDetails.cart.map((itemRow, index) => (
           <Row key={index}>
-            <Text style={{ color: '#609966' }}>{itemRow.name}</Text>
-            <Text style={{ color: '#609966' }}>qty: {itemRow.quantity}</Text>
-            <Text style={{ color: '#609966' }}>₦{itemRow.price}</Text>
+            <Text style={{ 
+              color: '#609966', 
+              flex: 1, 
+              paddingHorizontal: 0,
+            }}>
+              {itemRow.name}
+            </Text>
+            <Text style={{ 
+              color: '#609966', 
+              flex: 1, 
+              paddingHorizontal: 0,
+              textAlign: 'center',
+            }}>
+              qty: {itemRow.quantity}
+            </Text>
+            <Text style={{ 
+              color: '#609966', 
+              flex: 1, 
+              paddingHorizontal: 0,
+              textAlign: 'center',
+            }}>
+              ₦{itemRow.price * itemRow.quantity}
+            </Text>
           </Row>
         )) }
       </View>
@@ -90,7 +114,7 @@ const styles = StyleSheet.create({
     flex : 2,
     justifyContent: 'center',
     marginTop: 40,
-    paddingHorizontal: 40,
+    paddingHorizontal: 30,
     paddingVertical: 10,
   },
 
@@ -108,7 +132,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderWidth: 1,
-    borderColor: 'silver'
+    borderColor: 'silver',
+    borderStyle: 'dotted'
+  },
+
+  receiptTitle: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10,
+    borderStyle: 'dashed',
+    borderBottomWidth: 1,
+    borderBottomColor: '#000'
   },
 
   row: {
@@ -118,7 +153,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderStyle: 'dashed',
     borderBottomWidth: 1,
-    borderBottomColor: '#000'
+    borderBottomColor: 'silver',
+    borderStyle: 'dotted'
   },
 
   badge: {

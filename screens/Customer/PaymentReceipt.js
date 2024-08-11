@@ -1,5 +1,4 @@
 import { AntDesign } from "@expo/vector-icons";
-import Button from "../../components/Button";
 import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 
@@ -74,7 +73,7 @@ const PaymentReceipt = ({ route, navigation }) => {
           <Row key={index}>
             <Text style={{ color: '#609966' }}>{itemRow.name}</Text>
             <Text style={{ color: '#609966' }}>qty: {itemRow.quantity}</Text>
-            <Text style={{ color: '#609966' }}>₦{itemRow.price}</Text>
+            <Text style={{ color: '#609966' }}>₦{itemRow.price * itemRow.quantity}</Text>
           </Row>
         )) }
       </View>

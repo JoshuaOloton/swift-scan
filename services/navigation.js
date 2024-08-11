@@ -5,6 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CartScreen from "../screens/Customer/CartScreen";
 import Home from "../screens/Customer/Home";
 import AdminLogin from "../screens/Admin/AdminLogin";
+import AdminTest from "../screens/Admin/AdminTest";
 import AdminRegister from "../screens/Admin/AdminRegister";
 import AdminPaymentReceipt from "../screens/Admin/AdminPaymentReceipt";
 import AdminScan from "../screens/Admin/AdminScan";
@@ -64,6 +65,7 @@ const AdminNavigator = () => {
       initialRouteName="AdminScan"
       screenOptions={{ headerShown: false }}
     >
+      <AdminNav.Screen name="AdminTest" component={AdminTest} />
       <AdminNav.Screen name="AdminScan" component={AdminScan} />
       <AdminNav.Screen name="RegisterProduct" component={RegisterProduct} />
       <AdminNav.Screen name="ScanSuccess" component={ScanSuccess} />
@@ -227,7 +229,7 @@ const AdminTabNavigator = () => {
         options={{
           tabBarLabel: "Inventory",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="inventory" size={24} color="black" />
+            <MaterialIcons name="inventory" size={24} color={color} />
           ),
         }}
       />

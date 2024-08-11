@@ -7,11 +7,16 @@ import {
 } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useState, useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ScanReceipt({ navigation }) {
   const [facing, setFacing] = useState("back");
   const [permission, requestPermission] = useCameraPermissions();
   const [result, setResult] = useState("");
+
+  const [isCameraVisible, setIsCameraVisible] = useState(true);
+
+  const isFocused = useIsFocused();
 
   /* Reset barcode when screen is navigated back to
   useful for when a product fetch fails o barcode is reset */
@@ -22,6 +27,18 @@ export default function ScanReceipt({ navigation }) {
 
     return unsubscribe;
   }, [navigation]);
+
+  useEffect(() => {
+    return () => {
+      if (isCameraVisible) {
+        // CameraView.relea
+      }
+    }
+  });
+
+  useEffect(() => {
+    console.log('ScanReceipt isFocused', isFocused);
+  }, [isFocused]);
 
   // useEffect(() => {
   //   if (result) {
@@ -57,9 +74,9 @@ export default function ScanReceipt({ navigation }) {
     );
   }
 
-  const toggleCameraFacing = () => {
-    setFacing((current) => (current === "back" ? "front" : "back"));
-  };
+  if (!isFocused) {
+    return null;
+  }
 
   const handleBarcodeScanned = ({ data, type }) => {
     setResult(data);
@@ -91,7 +108,8 @@ export default function ScanReceipt({ navigation }) {
         Place QR Code in box {"\n"}below
       </Text>
       <Text style={{ marginTop: 20, marginBottom: 10 }}>{result}</Text>
-      <CameraView
+      { isFocused && 
+        <CameraView
           style={styles.camera}
           facing={facing}
           onBarcodeScanned={handleBarcodeScanned}
@@ -100,6 +118,7 @@ export default function ScanReceipt({ navigation }) {
             barcodeTypes: ["qr"],
           }}
         ></CameraView>
+      }
     </View>
   );
 }

@@ -2,7 +2,7 @@ import { StyleSheet, View, TouchableOpacity, ActivityIndicator } from "react-nat
 import React, { useState, useEffect } from "react";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, withRepeat } from "react-native-reanimated";
 import Text from "@kaloraat/react-native-text";
-import Button from "../../components/Button";
+import ActionButton from "../../components/Button";
 import UserInput from "../../components/UserInput";
 import LoginLogo from "../../components/LoginLogo";
 import { signup } from "../../services/auth";
@@ -131,14 +131,14 @@ const Signup = ({ navigation }) => {
           toggleShowPassword={toggleShowPassword}
         />
       </View>
-      <Button 
+      <ActionButton 
         role="dark"
         clickHandler={handleSignup}
       >
         { !loading ? 
           "SIGN UP" :
           <ActivityIndicator size="large" color="#fff" /> }
-      </Button>
+      </ActionButton>
       <Text center style={{ marginTop: 10, color: "#909090", borderWidth: 0 }}>
         Already have an account?
         <TouchableOpacity

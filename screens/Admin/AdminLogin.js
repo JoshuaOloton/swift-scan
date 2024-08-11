@@ -4,7 +4,7 @@ import Text from "@kaloraat/react-native-text";
 import { useState, useEffect } from "react";
 import LoginLogo from "../../components/LoginLogo";
 import UserInput from "../../components/UserInput";
-import Button from "../../components/Button";
+import ActionButton from "../../components/Button";
 import { login } from "../../services/auth";
 import { useApp } from "../../context/AppContext";
 import { storeData } from "../../services/storage";
@@ -39,6 +39,10 @@ export default function AdminLogin({ navigation }) {
 
   const handleSubmit = async () => {
     try {
+      if (!email || !password) {
+        setErrorMsg("Please fill in all fields");
+        return;
+      }
       setErrorMsg("");
       setLoading(true);
       const user = await login(email, password.trim(), "admin");
@@ -89,15 +93,15 @@ export default function AdminLogin({ navigation }) {
           toggleShowPassword={toggleShowPassword}
           />
       </View>
-      <Button role="dark" clickHandler={handleSubmit}>
+      <ActionButton role="dark" clickHandler={handleSubmit}>
         {!loading ? "Log in" : <ActivityIndicator size="small" color="#fff" />}
-      </Button>
-      <Button
+      </ActionButton>
+      <ActionButton
         role="switch-form"
         clickHandler={() => navigation.navigate("AdminRegister")}
       >
         SIGN UP
-      </Button>
+      </ActionButton>
       <TouchableOpacity onPress={() => navigation.navigate("Login")}>
         <Text style={{ textAlign: 'center', marginTop: 20 }}>Customer? Click here to login</Text>
       </TouchableOpacity>

@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useApp } from "../../context/AppContext";
 import CartItem from "../../components/CartItem";
-import Button from "../../components/Button";
+import ActionButton from "../../components/Button";
 import { useEffect, useState } from "react";
 
 
@@ -66,13 +66,13 @@ const CartScreen = ({ navigation }) => {
                 />
               )) }
             </View>
-            <Button role="dark" clickHandler={proceedToCheckout}>
+            <ActionButton role="dark" clickHandler={proceedToCheckout}>
               {!loading ? (
                 "Go to Checkout"
               ) : (
                 <ActivityIndicator size="large" color="#fff" />
               )}
-            </Button>
+            </ActionButton>
           </>
         ) : (
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>

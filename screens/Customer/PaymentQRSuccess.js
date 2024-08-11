@@ -5,7 +5,7 @@ import {
   ToastAndroid, 
   PermissionsAndroid, 
   Platform } from "react-native";
-import Button from "../../components/Button";
+import ActionButton from "../../components/Button";
 import { useState, useEffect, useRef, Alert } from "react";
 import QRCode from "react-native-qrcode-svg";
 import * as Sharing from "expo-sharing";
@@ -60,6 +60,7 @@ const PaymentQRSuccess = ({ route, navigation }) => {
           size={26} 
           color="black" 
           style={{ position: 'absolute', left: 0, top: 20 }} 
+          onPress={() => navigation.navigate('Home')}
         />
         <AntDesign 
           name="checkcircle" 
@@ -80,7 +81,7 @@ const PaymentQRSuccess = ({ route, navigation }) => {
           </View>
         </ViewShot>
       </View>
-      <Button role="light" clickHandler={shareQRCode}>
+      <ActionButton role="light" clickHandler={shareQRCode}>
         {/* <Feather 
           name="download" 
           size={20} 
@@ -93,10 +94,10 @@ const PaymentQRSuccess = ({ route, navigation }) => {
         />
         {'  '}
         <Text>Share QR Code</Text>
-      </Button>
-      <Button role="dark" clickHandler={() => navigation.navigate('PaymentReceipt', { paymentDetails: paymentDetails })}>
+      </ActionButton>
+      <ActionButton role="dark" clickHandler={() => navigation.navigate('PaymentReceipt', { paymentDetails: paymentDetails })}>
         Generate Receipt
-      </Button>
+      </ActionButton>
     </View>
   );
 };

@@ -1,12 +1,16 @@
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import React, { useEffect, useState } from "react";
 import { useApp } from "../context/AppContext";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 
 const CartItem = ({ barcode, name, price, quantity }) => {
   const { cart, setCart } = useApp();
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const storage = getStorage();
 
   const removeItem = (barcode) => {
     // const newCart = currentCart.filter((item) => item.barcode !== barcode);
@@ -21,8 +25,24 @@ const CartItem = ({ barcode, name, price, quantity }) => {
     );
   } 
 
+  // useEffect(() => {
+  //   const storageRef = ref(storage, `products/${barcode}.png`);
+  //   getDownloadURL(storageRef)
+  //     .then((url) => {
+  //       console.log(url);
+  //       setImageUrl(url);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching image URL:', error);
+  //     });
+  // }, [barcode]); // Include dependencies array
+
   return (
     <View style={styles.cartItemWrapper}>
+      {/* <Image 
+        source={{ uri: imageUrl }} 
+        style={{ width: 100, height: 100, flex: 1 }} 
+      /> */}
       <View style={styles.productInfo}>
         <View style={{ gap: 5 }}>
           <Text style={{ color: "#999", fontSize: 19 }}>{name}</Text>

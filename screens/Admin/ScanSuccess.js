@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, ActivityIndicator, Image } from 'react-native'
-import Button from "../../components/Button";
+import ActionButton from "../../components/Button";
 import { AntDesign, Feather } from '@expo/vector-icons';
 import React from 'react'
 
@@ -21,15 +21,15 @@ const ScanSuccess = ({ navigation }) => {
         />
         <Text style={{ color: '#606060', textAlign: 'center' }}>Your product has been added to the inventory.</Text>
       </View>
-      <Button role="dark" clickHandler={() => navigation.navigate('Inventory')}>
+      <ActionButton role="dark" clickHandler={() => navigation.navigate('Inventory')}>
         View Inventory
-      </Button>
-      <Button
+      </ActionButton>
+      <ActionButton
         role="switch-form"
         clickHandler={() => navigation.navigate("AdminScan")}
       >
         SCAN ANOTHER PRODUCT
-      </Button>
+      </ActionButton>
     </View>
   )
 }

@@ -38,9 +38,9 @@ const Orders = ({ navigation }) => {
       } catch (error) { // Product not found, scan again
         alert("Error fetching orders");
         console.error(error);
-        setTimeout(() => {
-          navigation.navigate("Stores");
-        }, 1000);
+        // setTimeout(() => {
+        //   navigation.navigate("Stores");
+        // }, 1000);
       }
     };
 
@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     marginTop: 40,
-    paddingHorizontal: 40,
+    borderWidth: 1,
+    borderColor: "#fff",
   },
 
   title: {
@@ -127,16 +128,14 @@ const styles = StyleSheet.create({
   
   orders: {
       flex: 1,
-      // justifyContent: "center",
       paddingVertical: 15,
       borderWidth: 1,
       borderColor: "#fff",
+      paddingHorizontal: 40,
   },
   
   orderContent: {
     flex: 1,
     paddingVertical: 15,
-    // borderWidth: 1,
-    // borderColor: "#000",
   }
 });

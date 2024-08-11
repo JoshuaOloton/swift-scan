@@ -1,6 +1,6 @@
 import { StyleSheet, View, Image } from "react-native";
 import Text from "@kaloraat/react-native-text";
-import Button from "../components/Button";
+import ActionButton from "../components/Button";
 import { useApp } from "../context/AppContext";
 
 const Welcome = ({ navigation }) => {
@@ -17,13 +17,13 @@ const Welcome = ({ navigation }) => {
         Seamless Shopping,{"\n\n"}Your Checkout, Your Way !!!
       </Text>
       <Image source={cart} style={styles.cartImage} />
-      <Button
+      <ActionButton
         role="dark"
         style={styles.getStarted}
         clickHandler={() => navigation.navigate("Login")}
       >
         Get Started
-      </Button>
+      </ActionButton>
     </View>
   );
 };

@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-// import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-librarieszz
@@ -12,7 +11,8 @@ const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
   authDomain: "dev-swift-scan.firebaseapp.com",
   projectId: "dev-swift-scan",
-  storageBucket: "dev-swift-scan.appspot.com",
+  // storageBucket: "dev-swift-scan.appspot.com",
+  storageBucket: "gs://dev-swift-scan.appspot.com",
   messagingSenderId: process.env.EXPO_MESSAGING_SENDER_ID,
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
   measurementId: "G-K91QNBCQ2T",
