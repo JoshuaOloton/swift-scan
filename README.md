@@ -142,7 +142,4 @@ The workflow from the customer’s access point is shown below:
 
 Contributions are welcome! Feel free to open issues or pull requests for any improvements, bug fixes, or feature requests.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
