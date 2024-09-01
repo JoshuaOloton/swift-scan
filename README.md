@@ -117,6 +117,27 @@ The workflow from the customer’s access point is shown below:
 
 
 
+## Customer Workflow
+The workflow from the customer’s access point is shown below: 
+- #### Login
+    - The user provides their valid username/email and password to gain access to the customer interface.
+- #### Product Scanning
+    - Customers utilize the barcode scanner on the app to scan products.
+    - Product details and prices are displayed upon successful scanning.
+    - Selected products are added to the customer's online cart.
+- #### Shopping Process
+    - Customers continue shopping, scanning, and adding products to their carts.
+    - A user-friendly interface ensures a seamless shopping experience.
+- #### Checkout and Payment
+    - Customers proceed to checkout.
+    - The app facilitates payment through a trusted payment provider using the customer's credit card details.
+    - An online receipt is generated upon successful payment.
+- #### In-Store Checkout
+    - Customers present the online receipt at a dedicated checkout counter.
+    - The attendant verifies the items, expediting the process as scanning and payment have already been completed.
+- #### Finalization
+    - Items are packed, and the customer can promptly depart from the supermarket or shopping mall.
+
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or pull requests for any improvements, bug fixes, or feature requests.
