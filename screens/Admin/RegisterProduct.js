@@ -74,14 +74,6 @@ export default function RegisterProduct({ route, navigation }) {
 
   const addProductToInventory = async (name, stock, price, description) => {
     try {
-
-      // check if product with barcode alreay exists
-      // const exists = await productExists(barcode);
-      // if (exists) {
-      //   setErrorMsg("Product already exists");
-      //   return;
-      // } 
-
       const docRef = await addDoc(collection(db, "products"), {
         name,
         stock,
@@ -100,8 +92,6 @@ export default function RegisterProduct({ route, navigation }) {
       setErrorMsg("");
       setLoading(true);
       await addProductToInventory(name, stock, price, description);
-      // alert(`Product with id: ${barcode} added successfully! Please scan another product to continue.`);
-      // navigation.goBack();
 
       navigation.navigate("ScanSuccess");
     } catch (error) {

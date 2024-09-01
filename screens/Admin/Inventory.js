@@ -30,6 +30,7 @@ export default function Inventory({ navigation }) {
     barcode: '',
   });
   const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const storage = getStorage();
 
@@ -42,7 +43,7 @@ export default function Inventory({ navigation }) {
     };
 
     fetchInventories();
-  }, []);
+  }, [refresh]);
 
   useEffect(() => {
     const filterInventories = viewInventories.filter((inventory) =>
@@ -78,6 +79,7 @@ export default function Inventory({ navigation }) {
       await deleteDoc(docSnapshot.ref);
     } catch (error) { // Product not found, scan again
       alert("Error fetching user details.");
+      console.error("Error fetching user details:", error);
     }
 
     // Create a reference to the file to delete
@@ -89,6 +91,7 @@ export default function Inventory({ navigation }) {
       setTimeout(() => {
         setDeleteSuccess(false);
         setModalVisible(prevState => !prevState);
+        setRefresh(prevState => !prevState);
       }, 1000);
     }).catch((error) => {
       // Uh-oh, an error occurred!
@@ -174,13 +177,13 @@ export default function Inventory({ navigation }) {
             />
           </View>
           {deleteSuccess ? (
-            <View style={styles.uploadComplete}>
+            <View style={styles.deleteComplete}>
               <AntDesign 
                 name="checkcircle" 
                 size={30} 
                 color="#27ad62" 
               />
-              <Text style={{ fontSize: 12, fontFamily: 'Signika' }}>Upload Completed.</Text>
+              <Text style={{ fontSize: 12, fontFamily: 'Signika' }}>Delete Completed.</Text>
             </View>
           ) : (
             <View style={styles.modalContent}>
@@ -227,7 +230,7 @@ const styles = StyleSheet.create({
   },
 
   modalWrapper: {
-    backgroundColor: '#b57287', 
+    backgroundColor: '#FFE4E1', 
     height: '35%',
     bottom: 0,
     position: 'absolute',
@@ -252,4 +255,9 @@ const styles = StyleSheet.create({
   modalContent: {
     paddingHorizontal: 30,
   },  
+
+  deleteComplete: {
+    marginVertical: 5,
+    alignItems: 'center',
+  }
 });

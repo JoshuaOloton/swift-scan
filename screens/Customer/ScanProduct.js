@@ -83,23 +83,23 @@ const ScanProduct = ({ navigation }) => {
       </Text>
       <Text style={{ marginTop: 20, marginBottom: 10 }}>{result}</Text>
       <CameraView
-          style={styles.camera}
-          facing={facing}
-          onBarcodeScanned={handleBarcodeScanned}
-          zoom={0.5} // 50% zoom
-          barcodeScannerSettings={{
-            barcodeTypes: [
-              "upc_a",
-              "upc_e",
-              "ean_8",
-              "ean_13",
-              "code39",
-              "code93",
-              "code128",
-              "pdf417",
-            ],
-          }}
-        ></CameraView>
+        style={styles.camera}
+        facing={facing}
+        onBarcodeScanned={handleBarcodeScanned}
+        zoom={0.5} // 50% zoom
+        barcodeScannerSettings={{
+          barcodeTypes: [
+            "upc_a",
+            "upc_e",
+            "ean_8",
+            "ean_13",
+            "code39",
+            "code93",
+            "code128",
+            "pdf417",
+          ],
+        }}
+      ></CameraView>
       {/* {!result ? (
         
       ) : (

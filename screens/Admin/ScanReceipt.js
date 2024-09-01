@@ -36,10 +36,6 @@ export default function ScanReceipt({ navigation }) {
     }
   });
 
-  useEffect(() => {
-    console.log('ScanReceipt isFocused', isFocused);
-  }, [isFocused]);
-
   // useEffect(() => {
   //   if (result) {
   //     navigation.navigate('ViewProduct', { barcode: result });

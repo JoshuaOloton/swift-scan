@@ -30,10 +30,6 @@ export default function AdminScan({ navigation }) {
     }
   }, [result]);
 
-  useEffect(() => {
-    console.log('AdminScan isFocused', isFocused);
-  }, [isFocused]);
-
   if (!permission) {
     // {Permissions still loading}
     return <View />;
