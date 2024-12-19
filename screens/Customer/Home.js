@@ -46,20 +46,6 @@ const Home = () => {
         />
       </View>
       <View style={styles.storesGallery}>
-        {/* { viewStores ? (
-          viewStores.filter(store => store.data().name.includes(searchTerm)).map((store) => (
-            <StoreCard 
-              key={store.id}
-              imageUrl={store.data().image_url}
-              title={store.data().name}
-              time={store.data().time}
-              distance={store.data().distance}
-              rating={store.data().rating}
-            />
-          ))
-        ) : (
-          <Text>Loading...</Text>
-        )} */}
         {filterStores.length === 0 && (
           <Text style={{ fontFamily: "Nunito Sans", marginTop: 20 }}>
             Please wait...

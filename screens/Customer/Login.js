@@ -1,8 +1,8 @@
-import { StyleSheet, View, ActivityIndicator, TouchableOpacity } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, withRepeat } from "react-native-reanimated";
+import LoginLogo from "../../components/LoginLogo";
+import { StyleSheet, View, ActivityIndicator, TouchableOpacity } from "react-native";
 import Text from "@kaloraat/react-native-text";
 import { useState, useEffect } from "react";
-import LoginLogo from "../../components/LoginLogo";
 import UserInput from "../../components/UserInput";
 import ActionButton from "../../components/Button";
 import { login } from "../../services/auth";

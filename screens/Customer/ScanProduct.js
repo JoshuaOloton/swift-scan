@@ -100,13 +100,6 @@ const ScanProduct = ({ navigation }) => {
           ],
         }}
       ></CameraView>
-      {/* {!result ? (
-        
-      ) : (
-        <TouchableOpacity style={styles.button} onPress={() => setResult("")}>
-          <Text style={styles.text}>Scan again</Text>
-        </TouchableOpacity>
-      )} */}
     </View>
   );
 };

@@ -7,14 +7,12 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 
 const CartItem = ({ barcode, name, price, quantity }) => {
-  const { cart, setCart } = useApp();
+  const { setCart } = useApp();
   const [imageUrl, setImageUrl] = useState(null);
 
   const storage = getStorage();
 
   const removeItem = (barcode) => {
-    // const newCart = currentCart.filter((item) => item.barcode !== barcode);
-
     setCart((currentCart) => currentCart.filter((item) => item.barcode !== barcode));
   }
 

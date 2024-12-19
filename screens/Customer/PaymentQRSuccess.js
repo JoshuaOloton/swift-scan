@@ -18,15 +18,11 @@ const PaymentQRSuccess = ({ route, navigation }) => {
   console.log(paymentDetails);
   const paymentDetailsJson = JSON.stringify(paymentDetails);
   // const paymentDetailsJson = "Hello World.";
-  const [ productQRRef, setProductQRRef ]= useState();
-  const qrRef = useRef();
 
   const viewShotRef = useRef();
 
-
   const shareQRCode = async () => {
     if (viewShotRef.current) {
-      console.log(2);
       try {
         // Capture the QR code as an image
         const uri = await viewShotRef.current.capture();

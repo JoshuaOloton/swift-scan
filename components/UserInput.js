@@ -1,7 +1,7 @@
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import Text from "@kaloraat/react-native-text";
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
+
 
 const UserInput = ({
   name,

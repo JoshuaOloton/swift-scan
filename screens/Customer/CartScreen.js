@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 const CartScreen = ({ navigation }) => {
   const { cart } = useApp();
   
-  const [totalCost, setTotalCost] = useState(0)
   const [loading, setLoading] = useState(false);
 
   
@@ -20,13 +19,6 @@ const CartScreen = ({ navigation }) => {
       let tCost = cart.map(item => item.price * item.quantity).reduce((a ,b) => a + b, 0).toFixed(2);
       navigation.navigate('Checkout', { tCost });
 
-      // let tc = 0;
-      // for (let item of cart) {
-      //   tc += item.price;
-      // }
-      // console.log(tc.toFixed(2));
-      // console.log(cart);
-      // alert(totalCost);
     } catch (error) {
       setLoading(false);
     }

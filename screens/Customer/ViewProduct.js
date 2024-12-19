@@ -38,10 +38,10 @@ const ViewProduct = ({ navigation, route }) => {
     try {
       setLoading(true);
       setCart((currentCart) => {
-        const existingCart = currentCart.find(
+        const existingProduct = currentCart.find(
           (item) => item.barcode === product.barcode
         );
-        if (existingCart) {
+        if (existingProduct) {
           return currentCart.map((item) =>
             item.barcode === product.barcode
               ? { ...item, quantity: item.quantity + quantity }
@@ -174,8 +174,6 @@ export default ViewProduct;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
     marginTop: 40,
   },
 

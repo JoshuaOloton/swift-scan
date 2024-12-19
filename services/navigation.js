@@ -33,10 +33,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 
 
-const Stack = createNativeStackNavigator();
-// const Tab = createBottomTabNavigator()
-const Tab = createMaterialBottomTabNavigator();
-
 // Home Nav is the navigation between supermarkets gallery and scan product
 const HomeNav = createNativeStackNavigator();
 
@@ -73,6 +69,8 @@ const AdminNavigator = () => {
   );
 };
 
+const Stack = createNativeStackNavigator();
+
 const StackNavigator = () => {
   const { currentUser, userRole } = useApp();
   return (
@@ -100,6 +98,9 @@ const StackNavigator = () => {
     </Stack.Navigator>
   );
 };
+
+// const Tab = createBottomTabNavigator()
+const Tab = createMaterialBottomTabNavigator();
 
 const TabNavigator = () => {
   const { cart } = useApp();

@@ -1,7 +1,7 @@
 import { AntDesign } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from 'react-native'
-import {PayWithFlutterwave} from 'flutterwave-react-native';
+import { PayWithFlutterwave } from 'flutterwave-react-native';
 import { useApp } from "../../context/AppContext";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../services/config";
@@ -9,8 +9,6 @@ import { db } from "../../services/config";
 
 const Checkout = ({ route, navigation }) => {
   const { currentUser, cart, setCart } = useApp();
-  const [transID, setTransID] = useState(null);
-  const [price, setPrice] = useState(0);
 
   const { tCost } = route.params;
 
@@ -86,8 +84,8 @@ const Checkout = ({ route, navigation }) => {
           <PayWithFlutterwave
             onRedirect={handleRedirect}
             options={{
-              tx_ref: generateTransactionRef(10),
-              authorization: 'FLWPUBK_TEST-d783a34b0ec7255a4c5bd889b7878cef-X',
+              tx_ref: generateTransactionRef(10), // unique transaction reference
+              authorization: 'FLWPUBK_TEST-d783a34b0ec7255a4c5bd889b7878cef-X', // public key
               customer: {
                 'email': currentUser.email
               },
