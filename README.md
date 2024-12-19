@@ -103,6 +103,11 @@ The workflow from the customer’s access point is shown below:
         <img src="./docs/images/admin-entry.png" />
         <p>Admin Data Entry</p>
     </div>
+    <br />
+    <div align="center">
+        <img src="./docs/images/product-delete.png" />
+        <p>Admin Product Deletion</p>
+    </div>
 
 ### 2. WORKFLOW
 1.	**Login**: The admin logs into the Supermarket Checkout App with privileged access.
